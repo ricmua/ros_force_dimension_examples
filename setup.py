@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'ros_force_dimension_examples'
+package_name = 'force_dimension_examples'
 
 setup(
     name=package_name,
@@ -19,7 +19,7 @@ setup(
     license='Mozille Public License 2.0',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [
+        'console_scripts': ['segment = force_dimension_examples.segment:entry_point',
         ],
     },
 )

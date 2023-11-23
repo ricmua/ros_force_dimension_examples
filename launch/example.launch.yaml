@@ -1,0 +1,50 @@
+# Copyright 2023 Carnegie Mellon University Neuromechatronics Lab (a.whit)
+# 
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# Contact: a.whit (nml@whit.contact)
+
+# Example command line:
+#  ros2 launch path/to/launch/example.launch.yaml example:=segment
+# 
+# Example parameter values:
+#  example:=gravity
+#  robot:=novint_falcon
+
+# https://github.com/ros2/launch/tree/rolling/launch_yaml
+# https://github.com/ros2/launch/tree/humble/launch_yaml
+
+
+launch:
+
+# Configuration. Command line arguments.
+- arg:
+    name: robot
+    default: novint_falcon
+    description: Name of the Force Dimension robot
+- arg:
+    name: example
+    default: segment
+    description: Name of the example to run
+
+# Initialize the robot node.
+- node:
+    pkg: force_dimension
+    name: interface
+    namespace: robot
+    exec: node
+    param:
+    - from: config/$(var robot).yaml
+
+# Initialize the example node.
+- node:
+    pkg: force_dimension_examples
+    name: segment #$(var example)
+    namespace: robot
+    exec: segment #$(var example)
+    param:
+    - from: config/examples.yaml
+
+
