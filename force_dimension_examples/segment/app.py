@@ -70,20 +70,19 @@ class SegmentApp:
         # Define shorthand for conditions / states.
         button_released = self.previous_button and not button
         
-        # If the addition of a point has been requested, then assign a point 
-        # for each of the first two times that a button is pressed and 
-        # released. The first time that the button is pressed, then current 
-        # position of the robot is assigned to point A. The second time the 
-        # button is pressed, the current position is assigned to point B.
-        if console == 'p':
-            if button_released:
-              if not any(self.A):
-                  self.A = position
-                  self.log(f'Set point A: {self.A}')
-              elif not any(self.B):
-                  self.B = position
-                  self.state['console'] = ''
-                  self.log(f'Set point B: {self.B}')
+        # Assign a point for each of the first two times that the robot button 
+        # is pressed and released, or the 'p' key is pressed. The first time, 
+        # the current position of the robot is assigned to point A. The second 
+        # time, the current position is assigned to point B.
+        if (console == 'p') or button_released:
+          self.state['console'] = ''
+          if not any(self.A):
+              self.A = position
+              self.log(f'Set point A: {self.A}')
+          elif not any(self.B):
+              self.B = position
+              self.state['console'] = ''
+              self.log(f'Set point B: {self.B}')
         
         # Clear the line segment sample points, if requested.
         if console == 'c':
@@ -93,6 +92,12 @@ class SegmentApp:
             self.log('Cleared line segment')
         
         # See Issue 13: https://github.com/ricmua/ros_force_dimension/issues/13
+        
+        # Terminate this node, if requested.
+        if console == 'q':
+            self.log('Terminating')
+            exit()
+        
         
     def process_forces(self):
         

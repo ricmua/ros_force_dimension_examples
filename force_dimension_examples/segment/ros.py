@@ -13,15 +13,15 @@
 
 
 # Import message types.
-from geometry_msgs.msg      import Point   as position_msg
-from geometry_msgs.msg      import Vector3 as velocity_msg
-from geometry_msgs.msg      import Vector3 as force_msg
-from example_interfaces.msg import Int32   as button_msg
-from example_interfaces.msg import String  as console_msg
+from force_dimension_examples import position_msg
+from force_dimension_examples import velocity_msg
+from force_dimension_examples import force_msg
+from force_dimension_examples import button_msg
+from force_dimension_examples import console_msg
 
+# Import a default Quality-of-Service profile for the local ROS2 system.
+from force_dimension_examples import qos_default
 
-# Define a default Quality-of-Service profile for the local ROS2 system.
-qos_default = history_depth = 10
 
 # Create a ROS2 node to act as a client for the Force Dimension node.
 def initialize_node():
