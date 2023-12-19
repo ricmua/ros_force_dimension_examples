@@ -28,6 +28,15 @@ launch:
     name: example
     default: segment
     description: Name of the example to run
+- arg:
+    name: console
+    default: "True"
+    description: Flag to enable the console node for publishing key strikes
+
+# Initialize local variables.
+- let:
+    name: run_console
+    value: $(eval "bool('$(var console)')")
 
 # Initialize the robot node.
 - node:
@@ -41,10 +50,17 @@ launch:
 # Initialize the example node.
 - node:
     pkg: force_dimension_examples
-    name: segment #$(var example)
+    name: $(var example)
     namespace: robot
-    exec: segment #$(var example)
+    exec: $(var example)
     param:
     - from: config/examples.yaml
 
+# Initialize the console node.
+- node:
+    if: $(var run_console)
+    pkg: force_dimension_examples
+    name: console
+    namespace: robot
+    exec: console
 
