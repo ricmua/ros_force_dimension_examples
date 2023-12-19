@@ -12,6 +12,7 @@
 # Example parameter values:
 #  example:=gravity
 #  robot:=novint_falcon
+#  console:=True
 
 # https://github.com/ros2/launch/tree/rolling/launch_yaml
 # https://github.com/ros2/launch/tree/humble/launch_yaml
@@ -30,7 +31,7 @@ launch:
     description: Name of the example to run
 - arg:
     name: console
-    default: "True"
+    default: ""
     description: Flag to enable the console node for publishing key strikes
 
 # Initialize local variables.
